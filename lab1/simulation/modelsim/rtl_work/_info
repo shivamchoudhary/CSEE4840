@@ -1,0 +1,141 @@
+m255
+K3
+13
+cModel Technology
+Z0 d/home/user3/spring16/sc3973/CSEE4840/lab1/simulation/modelsim
+vcontroller
+Z1 DXx6 sv_std 3 std 0 22 F[19LRNL:5;XmIFh[XOPn1
+Ii?=dYD?W?[5g6AA0=S:l[3
+VjEozU[4nIP]kYbe;gDm>d0
+Z2 !s105 lab1_sv_unit
+S1
+Z3 d/home/user3/spring16/sc3973/CSEE4840/lab1/simulation/modelsim
+Z4 w1454517232
+Z5 8/home/user3/spring16/sc3973/CSEE4840/lab1/lab1.sv
+Z6 F/home/user3/spring16/sc3973/CSEE4840/lab1/lab1.sv
+L0 25
+Z7 OV;L;10.1d;51
+r1
+31
+Z8 !s108 1454518258.474264
+Z9 !s107 /home/user3/spring16/sc3973/CSEE4840/lab1/lab1.sv|
+Z10 !s90 -reportprogress|300|-sv|-work|work|+incdir+/home/user3/spring16/sc3973/CSEE4840/lab1|/home/user3/spring16/sc3973/CSEE4840/lab1/lab1.sv|
+Z11 o-sv -work work -O0
+Z12 !s92 -sv -work work +incdir+/home/user3/spring16/sc3973/CSEE4840/lab1 -O0
+!i10b 1
+!s100 `XJTOgXYgC=K:I[S3W0n@3
+!s85 0
+!s101 -O0
+vhex7seg
+R1
+IgfedQF2oM@L3=WZab`;M<2
+V6@XH`bo1dzGb>ZhEhzgbn0
+R2
+S1
+R3
+R4
+R5
+R6
+L0 69
+R7
+r1
+31
+R8
+R9
+R10
+R11
+R12
+!i10b 1
+!s100 P@o3:D40;b<K3GCKAFRY<0
+!s85 0
+!s101 -O0
+vlab1
+R1
+I9`WM]enHI5ICfk1TQl>6<1
+Vgde^Rzd]R:E`_HAb1PkP42
+R2
+S1
+R3
+R4
+R5
+R6
+L0 8
+R7
+r1
+31
+R8
+R9
+R10
+R11
+R12
+!i10b 1
+!s100 <G]TEn15FNR1DA=S8]NMY3
+!s85 0
+!s101 -O0
+vmemory
+R1
+I0OoliS;04gm:`A6Jn7o1@3
+Vaao1AF<7=UNNHd_2o[S9b2
+R2
+S1
+R3
+R4
+R5
+R6
+L0 96
+R7
+r1
+31
+R8
+R9
+R10
+R11
+R12
+!i10b 1
+!s100 D5L;NUO?e?WWcnSPz@REi2
+!s85 0
+!s101 -O0
+vSoCKit_Top
+!i10b 1
+!s100 eUYk9UH@[7ezhR`=MSgPd3
+Ijb9RUFC2EhKca=HRCS5W>2
+VLh7ne<Y@TZW^n6^C6Mg?S2
+R3
+w1454517396
+8/home/user3/spring16/sc3973/CSEE4840/lab1/simulation/modelsim/lab1.vo
+F/home/user3/spring16/sc3973/CSEE4840/lab1/simulation/modelsim/lab1.vo
+L0 31
+R7
+r1
+!s85 0
+31
+!s108 1454518377.797935
+!s107 /home/user3/spring16/sc3973/CSEE4840/lab1/simulation/modelsim/lab1.vo|
+!s90 -reportprogress|300|-work|work|/home/user3/spring16/sc3973/CSEE4840/lab1/simulation/modelsim/lab1.vo|
+!s101 -O0
+o-work work -O0
+n@so@c@kit_@top
+vVGA_LED_Emulator
+R1
+I>Ld7TnZDIAF@n2RzkkhcI0
+V?zQXfz28SYFWMI_nC4oYe0
+S1
+R3
+w1454515117
+8/home/user3/spring16/sc3973/CSEE4840/lab1/VGA_LED_Emulator.sv
+F/home/user3/spring16/sc3973/CSEE4840/lab1/VGA_LED_Emulator.sv
+L0 9
+R7
+r1
+31
+R11
+n@v@g@a_@l@e@d_@emulator
+R12
+!i10b 1
+!s100 Lmf[NA:T3choFI84Z;Q;X2
+!s105 VGA_LED_Emulator_sv_unit
+!s85 0
+!s108 1454518258.245220
+!s107 /home/user3/spring16/sc3973/CSEE4840/lab1/VGA_LED_Emulator.sv|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+/home/user3/spring16/sc3973/CSEE4840/lab1|/home/user3/spring16/sc3973/CSEE4840/lab1/VGA_LED_Emulator.sv|
+!s101 -O0

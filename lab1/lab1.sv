@@ -39,30 +39,33 @@ module controller(input logic        clk,
 			case (~KEY)
 				4'b0001: if(flag ==1'b0) 
 					begin
-						din <=dout+1;
-						flag<=1'b1;
+						a=a;
+						din =dout+8'b00000001;
+						flag=1'b1;
+						we = 1'b1;
 					end
 				4'b0010: if(flag ==1'b0) 
-					begin 
-						din <=dout-1;
-						flag<=1'b1;
+					begin
+						a=a;
+						din =dout-8'b00000001;
+						flag=1'b1;
+						we = 1'b1;
 					end
 				4'b0100: if(flag ==1'b0) 
 					begin 
-						a <= a+1;
-						din <= mem[a];
-						flag<=1'b1;
+						a = a+4'b0001;
+						flag =1'b1;
+						we = 1'b0;
 					end
 				4'b1000: if(flag ==1'b0) 
 					begin 
-						a <= a-1;
-						din <= mem[a];
-						flag<=1'b1;
+						a = a-4'b0001;
+						//dout = mem[a];
+						flag=1'b1;
+						we = 1'b0;
 					end
-				default: flag<=1'b0;
-				endcase
-		assign we = 1'b1;
-			
+				default: flag=1'b0;
+			endcase			
 endmodule
 		  
 module hex7seg(input logic [3:0] a,
@@ -72,21 +75,21 @@ module hex7seg(input logic [3:0] a,
 	always_comb 
 		case (~a)
 			4'd0: 	y = 8'b00111111; //0
-			4'd1: 	y = 8'b00000110;			  //1
+			4'd1: 	y = 8'b00000110; //1
 			4'd2: 	y = 8'b01011011; //2
-			4'd3: 	y = 8'b01001111;         //3
+			4'd3: 	y = 8'b01001111; //3
 			4'd4: 	y = 8'b01100110; //4
-			4'd5: 	y = 8'b01101101;         //5
+			4'd5: 	y = 8'b01101101; //5
 			4'd6: 	y = 8'b01111101; //6
-			4'd7: 	y = 8'b00000111;         //7  
-			4'd8: 	y = 8'b01111111;//8
+			4'd7: 	y = 8'b00000111; //7  
+			4'd8: 	y = 8'b01111111; //8
 			4'd9: 	y = 8'b01100111; //9
-			4'd10: 	y = 8'b01011100;			  //10
-			4'd11: 	y = 8'b01111100; //11
-			4'd12: 	y = 8'b01011000;         //12
-			4'd13: 	y = 8'b01011110; //13
-			4'd14: 	y = 8'b01111011;         //14
-			4'd15: 	y = 8'b01110001; //15
+			4'd10: 	y = 8'b00111111; //A
+			4'd11: 	y = 8'b01111100; //B
+			4'd12: 	y = 8'b00111001; //C
+			4'd13: 	y = 8'b01011110; //D
+			4'd14: 	y = 8'b01111001; //E
+			4'd15: 	y = 8'b01110001; //F
 			default: y = 8'b00000000;
 		endcase
 endmodule

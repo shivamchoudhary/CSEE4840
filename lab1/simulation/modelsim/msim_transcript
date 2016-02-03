@@ -1,0 +1,45 @@
+# do lab1_run_msim_rtl_verilog.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Copying /opt/altera/quartus-13.1/modelsim_ase/linuxaloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied /opt/altera/quartus-13.1/modelsim_ase/linuxaloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vlog -sv -work work +incdir+/home/user3/spring16/sc3973/CSEE4840/lab1 {/home/user3/spring16/sc3973/CSEE4840/lab1/VGA_LED_Emulator.sv}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module VGA_LED_Emulator
+# 
+# Top level modules:
+# 	VGA_LED_Emulator
+# vlog -sv -work work +incdir+/home/user3/spring16/sc3973/CSEE4840/lab1 {/home/user3/spring16/sc3973/CSEE4840/lab1/lab1.sv}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module lab1
+# -- Compiling module controller
+# -- Compiling module hex7seg
+# -- Compiling module memory
+# 
+# Top level modules:
+# 	lab1
+# vlog -sv -work work +incdir+/home/user3/spring16/sc3973/CSEE4840/lab1 {/home/user3/spring16/sc3973/CSEE4840/lab1/SoCKit_Top.sv}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module SoCKit_Top
+# 
+# Top level modules:
+# 	SoCKit_Top
+# 
+vlog -reportprogress 300 -work work /home/user3/spring16/sc3973/CSEE4840/lab1/simulation/modelsim/lab1.vo
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module SoCKit_Top
+# 
+# Top level modules:
+# 	SoCKit_Top
+vlog -reportprogress 300 -work work /home/user3/spring16/sc3973/CSEE4840/lab1/simulation/modelsim/lab1.vo
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module SoCKit_Top
+# 
+# Top level modules:
+# 	SoCKit_Top
