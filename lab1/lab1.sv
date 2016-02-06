@@ -2,8 +2,8 @@
 //
 // Spring 2014
 //
-// By: Ayush Jain & Shivam Choudhary
-// Uni: aj2672 & sc3973
+// Ayush Jain: aj2672
+// Shivam Choudhary: sc3973
 
 module lab1(input logic       clk,
             input logic [3:0] KEY,
