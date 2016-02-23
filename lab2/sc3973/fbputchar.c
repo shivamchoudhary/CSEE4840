@@ -83,7 +83,7 @@ void fbputchar(char c, int row, int col)
 }
 
 
-void clearscreen()
+void clearscreen(int startRow, int endRow)
 {
 
 
@@ -95,7 +95,7 @@ void clearscreen()
   for (y = 0 ; y < 128 ; y++, left += fb_finfo.line_length) {
     pixels = *pixelp++;
     pixel = left;
-    for (x = 0 ; x < 47 ; x++, pixels <<= 1, pixel += 4)
+    for (x = startRow ; x < endRow ; x++, pixels <<= 1, pixel += 4)
      {
         //pixel[0] = 0;
 //        pixel[1] = 0;
@@ -104,8 +104,18 @@ void clearscreen()
 	  fbputchar(' ', x, y);
       }
   }
+  basicview();
 }
 
+void basicview()
+{
+  int col;
+  for (col = 0 ; col < 128 ; col++) {
+    fbputchar('*', 0, col);
+    fbputchar('*', 43, col);
+    fbputchar('*', 46, col);
+  }
+}
 
 /*
  * Draw the given string at the given row/column.
