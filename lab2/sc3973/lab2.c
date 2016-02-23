@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
@@ -22,16 +23,17 @@
  */
 
 int sockfd; /* Socket file descriptor */
+int row=1;
 
 struct libusb_device_handle *keyboard;
 uint8_t endpoint_address;
 
 pthread_t network_thread;
 void *network_thread_f(void *);
-
+void printstring(char buffer[], int n);
 int main()
 {
-  int err, col;
+  int err;
 
   struct sockaddr_in serv_addr;
 
@@ -44,15 +46,8 @@ int main()
     exit(1);
   }
 
-clearscreen();
-  /* Draw rows of asterisks across the top and bottom of the screen */
-  for (col = 0 ; col < 128 ; col++) {
-    fbputchar('*', 0, col);
-    fbputchar('*', 43, col);
-    fbputchar('*', 46, col);
-  }
-fbputs("Love looks not with the eyes but with the mind and therefore is winged Cupid painted blind To thine own self be true and it must follow as the night the day thou canst not then be false to any man Love all trust a few do wrong to none Whats in a name? That which we call a rose by any other name would smell as sweet.We are such stuff as dreams are made on, and our little life is rounded with a sleep.", 15, 0);
-  /* Open the keyboard */
+clearscreen(0, 47);
+ /* Open the keyboard */
   if ( (keyboard = openkeyboard(&endpoint_address)) == NULL ) {
     fprintf(stderr, "Did not find a keyboard\n");
     exit(1);
@@ -82,17 +77,82 @@ fbputs("Love looks not with the eyes but with the mind and therefore is winged C
   /* Start the network thread */
   pthread_create(&network_thread, NULL, network_thread_f, NULL);
 
+char buffer[BUFFER_SIZE];
+int i=0, numChars=0;
+  memset(buffer, 0, BUFFER_SIZE);
   /* Look for and handle keypresses */
   for (;;) {
     libusb_interrupt_transfer(keyboard, endpoint_address,
 			      (unsigned char *) &packet, sizeof(packet),
 			      &transferred, 0);
+    
     if (transferred == sizeof(packet)) {
       sprintf(keystate, "%02x %02x %02x", packet.modifiers, packet.keycode[0],
 	      packet.keycode[1]);
-      printf("%s\n", keystate);
-      fbputs(keystate, 6, 0);
-      if (packet.keycode[0] == 0x29) { /* ESC pressed? */
+      int input, curRow, curCol;
+      bool shift; 
+      input = packet.keycode[0];
+      shift = (packet.modifiers==0x02 || packet.modifiers==0x20);
+      curRow = i>127 ? 45 : 44;
+      curCol = i>127 ? i-127: i;
+      if(input == 0){
+	clearscreen(44, 46);
+	fbputs(buffer, 44, 0);
+	fbputchar('_', curRow, curCol);
+	continue;
+      }
+      if(input == 0x2a){
+	if(i>0){
+	  if(i<numChars){
+	    int j;
+	    j = i-1;
+	    while(j<numChars){
+	      buffer[j] = buffer[j+1];
+	      j++;
+	    }
+	    buffer[j]=0;
+	  }else{
+	    buffer[i-1]=0;
+	  }
+	  i--;
+	  numChars--;
+	}
+	continue;
+      }
+      if(input == 0x50){
+	if(i>0){
+	  i--;
+	}
+	continue;
+      }
+      if(input == 0x4f){
+	if(i<numChars){
+	  i++;
+	}
+	continue;
+      }
+
+      if(input != 40){
+	if(shift)
+	  input += 61;
+	else
+	  input += 93;
+	buffer[i++] = (char)(input);
+	numChars++;
+	fbputs(buffer, 44, 0);
+      }else{
+ 	int n;
+	n = write(sockfd, buffer, BUFFER_SIZE);	
+	if(n<0){	  
+	    fprintf(stderr, "Error: write() failed.  Is the server running?\n");
+	}
+	printstring(buffer, i+1);
+ 	clearscreen(44, 46);	
+	i=0;numChars=0;
+	memset(buffer, 0, BUFFER_SIZE);
+      }
+
+	if (packet.keycode[0] == 0x29) { /* ESC pressed? */
 	break;
       }
     }
@@ -110,24 +170,22 @@ fbputs("Love looks not with the eyes but with the mind and therefore is winged C
 void *network_thread_f(void *ignored)
 {
   char recvBuf[BUFFER_SIZE];
-  int row=1;
+//  int row=1;
   int n;
   /* Receive data */
   while ( (n = read(sockfd, &recvBuf, BUFFER_SIZE - 1)) > 0 ) {
     recvBuf[n] = '\0';
-    printf("%s", recvBuf);
-    printf("%d", row);
-    fbputs(recvBuf, row, 0);
-    if((row+n/128+1)>42){
-	printf("%d", row);
-	row = 1;
-	clearscreen();
-    }else{
-	printf("%d", row);
-	row += n%128 == 0 ? n/128 : n/128+1 ;
-    }
+    printstring(recvBuf, n);
   }
-
   return NULL;
 }
 
+void printstring(char recvBuf[], int n){
+    fbputs(recvBuf, row, 0);
+    if((row+n/128+1)>42){
+	clearscreen(0, 44);
+	row = 1;
+    }else{
+	row += n%128 == 0 ? n/128 : n/128+1 ;
+    }
+}
