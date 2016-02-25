@@ -82,7 +82,8 @@ void fbputchar(char c, int row, int col)
   }
 }
 
-
+// When called prints space on all columns between the rows startRow and endRow
+// startRow inclusive and endRow exclusive.
 void clearscreen(int startRow, int endRow)
 {
 
@@ -107,6 +108,8 @@ void clearscreen(int startRow, int endRow)
   basicview();
 }
 
+//function to print a basic view creating separate 
+//space for text from the server and input area.
 void basicview()
 {
   int col;
