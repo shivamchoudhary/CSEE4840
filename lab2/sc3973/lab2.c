@@ -144,8 +144,9 @@ int i=0, numChars=0;
 	}
 	continue;
       }
-      //checks if shift is pressed or not.
-      //Accordingly, prints capital or lowercase letters.
+      //checks if enter was pressed or not.
+      //If not, continues taking in input in the text area according to whether shift was pressed.
+      //Otherwise, sends the entire buffer to the network and prints it on the screen.
       if(input != 40){
 	if(shift)
 	  input += 61;
