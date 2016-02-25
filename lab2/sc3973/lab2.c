@@ -1,3 +1,8 @@
+/*
+*  Shivam Choudhary : sc3973
+*  Ayush Jain : aj2672
+*/
+
 #include "fbputchar.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +28,7 @@
  */
 
 int sockfd; /* Socket file descriptor */
-int row=1;
+int row=1; //keeps track of the row on which the output is to be printed.
 
 struct libusb_device_handle *keyboard;
 uint8_t endpoint_address;
@@ -46,6 +51,7 @@ int main()
     exit(1);
   }
 
+// Clears the screen in the beginning. The parameters define the from rows and to rows to be printed. 
 clearscreen(0, 47);
  /* Open the keyboard */
   if ( (keyboard = openkeyboard(&endpoint_address)) == NULL ) {
@@ -92,15 +98,20 @@ int i=0, numChars=0;
       int input, curRow, curCol;
       bool shift; 
       input = packet.keycode[0];
-      shift = (packet.modifiers==0x02 || packet.modifiers==0x20);
+      //boolean variable holds information of shift key(true if pressed else false).
+      shift = (packet.modifiers==0x02 || packet.modifiers==0x20); 
+      // Current cursor position in the input text area.
       curRow = i>127 ? 45 : 44;
       curCol = i>127 ? i-127: i;
+      //Called after any key is released.
       if(input == 0){
+      	// clear and re-print the data buffer.
 	clearscreen(44, 46);
 	fbputs(buffer, 44, 0);
-	fbputchar('_', curRow, curCol);
+	fbputchar('_', curRow, curCol); // Prints the cursor.
 	continue;
       }
+      // Backspace key.
       if(input == 0x2a){
 	if(i>0){
 	  if(i<numChars){
@@ -119,19 +130,22 @@ int i=0, numChars=0;
 	}
 	continue;
       }
+      //left arrow key
       if(input == 0x50){
 	if(i>0){
 	  i--;
 	}
 	continue;
       }
+      // right arrow key.
       if(input == 0x4f){
 	if(i<numChars){
 	  i++;
 	}
 	continue;
       }
-
+      //checks if shift is pressed or not.
+      //Accordingly, prints capital or lowercase letters.
       if(input != 40){
 	if(shift)
 	  input += 61;
@@ -170,7 +184,6 @@ int i=0, numChars=0;
 void *network_thread_f(void *ignored)
 {
   char recvBuf[BUFFER_SIZE];
-//  int row=1;
   int n;
   /* Receive data */
   while ( (n = read(sockfd, &recvBuf, BUFFER_SIZE - 1)) > 0 ) {
@@ -180,6 +193,8 @@ void *network_thread_f(void *ignored)
   return NULL;
 }
 
+// To print a buffer text of a particular length.
+// Takes care of the row where data is to be printed.
 void printstring(char recvBuf[], int n){
     fbputs(recvBuf, row, 0);
     if((row+n/128+1)>42){
